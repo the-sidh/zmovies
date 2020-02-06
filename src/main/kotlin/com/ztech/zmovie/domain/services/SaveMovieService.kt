@@ -5,7 +5,7 @@ import com.ztech.zmovie.domain.exceptions.TooMuchActorsException
 import com.ztech.zmovie.domain.gateways.storage.MoviesRepository
 
 
-class SaveMovieService(val repository: MoviesRepository) {
+class SaveMovieService(private val repository: MoviesRepository) {
     fun saveMovie(movie: Movie): Movie {
         when {
             movie.actors.size > 10 -> throw TooMuchActorsException()
