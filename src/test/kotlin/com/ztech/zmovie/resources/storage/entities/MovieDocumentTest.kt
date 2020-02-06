@@ -19,7 +19,7 @@ class MovieDocumentTest {
 
         val movie = MovieDocument.toMovie(doc)
         Assertions.assertAll(
-            Executable { Assertions.assertEquals(movie.title, doc.title) },
+            Executable { Assertions.assertEquals(movie.title, doc.id) },
             Executable { Assertions.assertEquals(movie.director, doc.director) },
             Executable { Assertions.assertEquals(movie.releaseDate, doc.releaseDate) },
             Executable { Assertions.assertEquals(movie.actors, doc.actors) },
@@ -30,7 +30,7 @@ class MovieDocumentTest {
     @Test
     fun `given a invalid MovieDocument, should throw an exception`() {
         val doc = MovieDocument(
-            title = "ET",
+            id = "ET",
             director = null,
             releaseDate = SimpleDateFormat("yyyy-MM-dd").parse("1982-5-23"),
             actors = listOf("Drew Barrymore", "Henry Thomas"),
@@ -44,7 +44,7 @@ class MovieDocumentTest {
         val movie = movieSample()
         val doc = MovieDocument.fromMovie(movie)
         Assertions.assertAll(
-            Executable { Assertions.assertEquals(movie.title, doc.title) },
+            Executable { Assertions.assertEquals(movie.title, doc.id) },
             Executable { Assertions.assertEquals(movie.director, doc.director) },
             Executable { Assertions.assertEquals(movie.releaseDate, doc.releaseDate) },
             Executable { Assertions.assertEquals(movie.actors, doc.actors) },

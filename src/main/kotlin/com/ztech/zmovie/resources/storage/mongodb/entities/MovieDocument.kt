@@ -8,8 +8,7 @@ import java.time.LocalDate
 import java.util.*
 
 data class MovieDocument(
-    var id: ObjectId? = null,
-    var title: String? = null,
+    var id: String? = null,
     var releaseDate: Date? = null,
     var rate: Rate? = null,
     var director: String? = null,
@@ -18,7 +17,7 @@ data class MovieDocument(
 
     companion object {
         fun fromMovie(movie: Movie) = MovieDocument(
-            title = movie.title,
+            id = movie.title,
             director = movie.director,
             rate = movie.rate,
             actors = movie.actors,
@@ -31,7 +30,7 @@ data class MovieDocument(
 
         private fun movie(movieDocument: MovieDocument) =
             movieDocument?.let {
-                it.title?.let { title ->
+                it.id?.let { title ->
                     it.actors?.let { actors ->
                         it.director?.let { director ->
                             it.rate?.let { rate ->

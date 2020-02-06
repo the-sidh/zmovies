@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase
 import com.ztech.zmovie.domain.entities.Movie
 import com.ztech.zmovie.domain.entities.Rate
 import com.ztech.zmovie.domain.exceptions.DatabaseInsertionException
+import com.ztech.zmovie.domain.exceptions.DuplicateMovieTitleException
 import com.ztech.zmovie.resources.storage.extension.MongoDBExtension
 import com.ztech.zmovie.resources.storage.mongodb.MoviesRepositoryImpl
 import com.ztech.zmovie.resources.storage.mongodb.entities.MovieDocument
@@ -35,6 +36,16 @@ class MoviesRepositoryImplTest(private val mongoDatabase: MongoDatabase) {
     }
 
     @Test
+    fun `given that a movie has already been persisted, other movie with the same title should result in a execption`() {
+        val repository = MoviesRepositoryImpl(mongoDatabase)
+        val movie1 = movieSample()
+        val movie2 = movieSample()
+        repository.insertMovie(movie1)
+        assertThrows<DuplicateMovieTitleException> { repository.insertMovie(movie2) }
+
+    }
+
+    @Test
     fun `given a valid movie, should persist it`() {
         val repository = MoviesRepositoryImpl(mongoDatabase)
         val movie = movieSample()
@@ -43,7 +54,7 @@ class MoviesRepositoryImplTest(private val mongoDatabase: MongoDatabase) {
         val inserted = collection.find().first()
         Assertions.assertAll(
             Executable { Assertions.assertTrue(wasInserted) },
-            Executable { Assertions.assertEquals(movie.title, inserted?.title) },
+            Executable { Assertions.assertEquals(movie.title, inserted?.id) },
             Executable { Assertions.assertEquals(movie.director, inserted?.director) },
             Executable { Assertions.assertEquals(movie.releaseDate, inserted?.releaseDate) },
             Executable { Assertions.assertEquals(movie.actors, inserted?.actors) },
@@ -59,7 +70,7 @@ class MoviesRepositoryImplTest(private val mongoDatabase: MongoDatabase) {
         every { mockCollection.insertOne(any()) } throws MongoException("")
         val repository = MoviesRepositoryImpl(mockMongoDatabase)
         val movie = movieSample()
-       assertThrows<DatabaseInsertionException>{repository.insertMovie(movie)}
+        assertThrows<DatabaseInsertionException> { repository.insertMovie(movie) }
     }
 
     @Test
@@ -71,7 +82,7 @@ class MoviesRepositoryImplTest(private val mongoDatabase: MongoDatabase) {
         val movie2 = Movie(
             title = "Star Wars - a new hope",
             director = "George Lucas",
-            releaseDate =  SimpleDateFormat("yyyy-MM-dd").parse("1977-1-30"),
+            releaseDate = SimpleDateFormat("yyyy-MM-dd").parse("1977-1-30"),
             actors = listOf("Harrison Ford", "Mark Hamill", "Carrie Fischer"),
             rate = Rate.SEM_CENSURA
         )
