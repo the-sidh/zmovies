@@ -5,11 +5,12 @@ import com.ztech.zmovie.domain.entities.Rate
 import org.bson.types.ObjectId
 import java.lang.IllegalArgumentException
 import java.time.LocalDate
+import java.util.*
 
 data class MovieDocument(
     var id: ObjectId? = null,
     var title: String? = null,
-    var releaseDate: LocalDate? = null,
+    var releaseDate: Date? = null,
     var rate: Rate? = null,
     var director: String? = null,
     var actors: List<String>? = emptyList()

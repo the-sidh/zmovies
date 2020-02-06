@@ -3,6 +3,7 @@ package com.ztech.zmovie.application.web.controllers
 import com.ztech.zmovie.domain.entities.Movie
 import com.ztech.zmovie.domain.entities.Rate
 import com.ztech.zmovie.domain.services.SaveMovieService
+import com.ztech.zmovie.resources.storage.sample.movieSample
 import io.javalin.Context
 import io.mockk.every
 import io.mockk.mockk
@@ -15,13 +16,7 @@ class SaveMoviesControllerTest {
     @Test
     fun `should save a movie`() {
         val service = mockk<SaveMovieService>()
-        val movie = Movie(
-            title = "ET",
-            director = "Steven Spielberg",
-            releaseDate = LocalDate.of(1982, 5, 23),
-            actors = listOf("Drew Barrymore", "Henry Thomas"),
-            rate = Rate.SEM_CENSURA
-        )
+        val movie = movieSample()
         every {ctx.body<Movie>()}returns movie
         every { service.saveMovie(movie) } returns movie
         val controller = SaveMoviesController(service)

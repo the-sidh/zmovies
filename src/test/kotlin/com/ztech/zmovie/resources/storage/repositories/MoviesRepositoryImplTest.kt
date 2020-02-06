@@ -9,6 +9,7 @@ import com.ztech.zmovie.domain.exceptions.DatabaseInsertionException
 import com.ztech.zmovie.resources.storage.extension.MongoDBExtension
 import com.ztech.zmovie.resources.storage.mongodb.MoviesRepositoryImpl
 import com.ztech.zmovie.resources.storage.mongodb.entities.MovieDocument
+import com.ztech.zmovie.resources.storage.sample.movieSample
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.function.Executable
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 
 @ExtendWith(MongoDBExtension::class)
@@ -35,13 +37,7 @@ class MoviesRepositoryImplTest(private val mongoDatabase: MongoDatabase) {
     @Test
     fun `given a valid movie, should persist it`() {
         val repository = MoviesRepositoryImpl(mongoDatabase)
-        val movie = Movie(
-            title = "ET",
-            director = "Steven Spielberg",
-            releaseDate = LocalDate.of(1982, 5, 23),
-            actors = listOf("Drew Barrymore", "Henry Thomas"),
-            rate = Rate.SEM_CENSURA
-        )
+        val movie = movieSample()
         val wasInserted = repository.insertMovie(movie)
 
         val inserted = collection.find().first()
@@ -62,32 +58,20 @@ class MoviesRepositoryImplTest(private val mongoDatabase: MongoDatabase) {
         every { mockMongoDatabase.getCollection(any(), MovieDocument::class.java) } returns mockCollection
         every { mockCollection.insertOne(any()) } throws MongoException("")
         val repository = MoviesRepositoryImpl(mockMongoDatabase)
-        val movie = Movie(
-            title = "ET",
-            director = "Steven Spielberg",
-            releaseDate = LocalDate.of(1982, 5, 23),
-            actors = listOf("Drew Barrymore", "Henry Thomas"),
-            rate = Rate.SEM_CENSURA
-        )
+        val movie = movieSample()
        assertThrows<DatabaseInsertionException>{repository.insertMovie(movie)}
     }
 
     @Test
     fun `given a rate, should return all movies with the given rate`() {
         val repository = MoviesRepositoryImpl(mongoDatabase)
-        val movie = Movie(
-            title = "ET",
-            director = "Steven Spielberg",
-            releaseDate = LocalDate.of(1982, 5, 23),
-            actors = listOf("Drew Barrymore", "Henry Thomas"),
-            rate = Rate.SEM_CENSURA
-        )
+        val movie = movieSample()
         repository.insertMovie(movie)
 
         val movie2 = Movie(
             title = "Star Wars - a new hope",
             director = "George Lucas",
-            releaseDate = LocalDate.of(1977, 1, 1),
+            releaseDate =  SimpleDateFormat("yyyy-MM-dd").parse("1977-1-30"),
             actors = listOf("Harrison Ford", "Mark Hamill", "Carrie Fischer"),
             rate = Rate.SEM_CENSURA
         )

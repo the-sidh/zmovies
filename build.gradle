@@ -53,8 +53,14 @@ dependencies {
     //Javalin
     compile 'io.javalin:javalin:2.3.0'
     compile 'org.slf4j:slf4j-simple:1.7.25'
-    // MongoDB
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4")
+    //Mongo
     compile 'org.mongodb:mongodb-driver-sync:3.10.2'
+    //DI
+    compile 'org.koin:koin-core:1.0.0'
 
     //Testing
     testCompile 'org.junit.jupiter:junit-jupiter:5.4.1'

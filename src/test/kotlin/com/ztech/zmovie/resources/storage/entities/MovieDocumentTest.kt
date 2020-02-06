@@ -1,25 +1,21 @@
 package com.ztech.zmovie.resources.storage.entities
 
-import com.ztech.zmovie.domain.entities.Movie
 import com.ztech.zmovie.domain.entities.Rate
 import com.ztech.zmovie.resources.storage.mongodb.entities.MovieDocument
+import com.ztech.zmovie.resources.storage.sample.movieDocumentSample
+import com.ztech.zmovie.resources.storage.sample.movieSample
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.function.Executable
 import java.lang.IllegalArgumentException
-import java.time.LocalDate
+import java.text.SimpleDateFormat
+
 
 class MovieDocumentTest {
     @Test
     fun `given a valid MovieDocument, should return a Movie`() {
-        val doc = MovieDocument(
-            title = "ET",
-            director = "Steven Spielberg",
-            releaseDate = LocalDate.of(1982, 5, 23),
-            actors = listOf("Drew Barrymore", "Henry Thomas"),
-            rate = Rate.SEM_CENSURA
-        )
+        val doc = movieDocumentSample()
 
         val movie = MovieDocument.toMovie(doc)
         Assertions.assertAll(
@@ -34,9 +30,9 @@ class MovieDocumentTest {
     @Test
     fun `given a invalid MovieDocument, should throw an exception`() {
         val doc = MovieDocument(
-            title = null,
-            director = "Steven Spielberg",
-            releaseDate = LocalDate.of(1982, 5, 23),
+            title = "ET",
+            director = null,
+            releaseDate = SimpleDateFormat("yyyy-MM-dd").parse("1982-5-23"),
             actors = listOf("Drew Barrymore", "Henry Thomas"),
             rate = Rate.SEM_CENSURA
         )
@@ -45,13 +41,7 @@ class MovieDocumentTest {
 
     @Test
     fun `given a valid Movie, should create a MovieDocument`() {
-        val movie = Movie(
-            title = "ET",
-            director = "Steven Spielberg",
-            releaseDate = LocalDate.of(1982, 5, 23),
-            actors = listOf("Drew Barrymore", "Henry Thomas"),
-            rate = Rate.SEM_CENSURA
-        )
+        val movie = movieSample()
         val doc = MovieDocument.fromMovie(movie)
         Assertions.assertAll(
             Executable { Assertions.assertEquals(movie.title, doc.title) },

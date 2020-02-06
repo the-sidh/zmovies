@@ -4,11 +4,13 @@ import com.ztech.zmovie.domain.entities.Movie
 import com.ztech.zmovie.domain.entities.Rate
 import com.ztech.zmovie.domain.exceptions.TooMuchActorsException
 import com.ztech.zmovie.domain.gateways.storage.MoviesRepository
+import com.ztech.zmovie.resources.storage.sample.movieSample
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 
 class SaveMovieServiceImplTest() {
@@ -16,13 +18,7 @@ class SaveMovieServiceImplTest() {
     @Test
     fun `Given a valid movie, should be able to save it`() {
         val service = SaveMovieService(repository)
-        val movie = Movie(
-            title = "ET",
-            director = "Steven Spielberg",
-            releaseDate = LocalDate.of(1982, 5, 23),
-            actors = listOf("Drew Barrymore", "Henry Thomas"),
-            rate = Rate.SEM_CENSURA
-        )
+        val movie = movieSample()
         every { repository.insertMovie(movie) } returns true
         Assertions.assertEquals(service.saveMovie(movie), movie)
     }
@@ -33,7 +29,7 @@ class SaveMovieServiceImplTest() {
         val movie = Movie(
             title = "ET",
             director = "Steven Spielberg",
-            releaseDate = LocalDate.of(1982, 5, 23),
+            releaseDate = SimpleDateFormat("yyyy-MM-dd").parse("1982-5-23"),
             actors = listOf(
                 "Drew Barrymore",
                 "Henry Thomas",
