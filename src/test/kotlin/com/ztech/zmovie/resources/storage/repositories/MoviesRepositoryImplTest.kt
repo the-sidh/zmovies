@@ -1,19 +1,23 @@
 package com.ztech.zmovie.resources.storage.repositories
 
+import com.mongodb.MongoException
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
 import com.ztech.zmovie.domain.entities.Movie
 import com.ztech.zmovie.domain.entities.Rate
+import com.ztech.zmovie.domain.exceptions.DatabaseInsertionException
 import com.ztech.zmovie.resources.storage.extension.MongoDBExtension
 import com.ztech.zmovie.resources.storage.mongodb.MoviesRepositoryImpl
 import com.ztech.zmovie.resources.storage.mongodb.entities.MovieDocument
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.function.Executable
 import java.time.LocalDate
-import javax.swing.text.Document
 
 @ExtendWith(MongoDBExtension::class)
 class MoviesRepositoryImplTest(private val mongoDatabase: MongoDatabase) {
@@ -32,7 +36,46 @@ class MoviesRepositoryImplTest(private val mongoDatabase: MongoDatabase) {
     fun `given a valid movie, should persist it`() {
         val repository = MoviesRepositoryImpl(mongoDatabase)
         val movie = Movie(
-            id = "rrrrr",
+            title = "ET",
+            director = "Steven Spielberg",
+            releaseDate = LocalDate.of(1982, 5, 23),
+            actors = listOf("Drew Barrymore", "Henry Thomas"),
+            rate = Rate.SEM_CENSURA
+        )
+        val wasInserted = repository.insertMovie(movie)
+
+        val inserted = collection.find().first()
+        Assertions.assertAll(
+            Executable { Assertions.assertTrue(wasInserted) },
+            Executable { Assertions.assertEquals(movie.title, inserted?.title) },
+            Executable { Assertions.assertEquals(movie.director, inserted?.director) },
+            Executable { Assertions.assertEquals(movie.releaseDate, inserted?.releaseDate) },
+            Executable { Assertions.assertEquals(movie.actors, inserted?.actors) },
+            Executable { Assertions.assertEquals(movie.rate, inserted?.rate) }
+        )
+    }
+
+    @Test
+    fun `given an error when trying to persist a valid movie, throw an exception`() {
+        val mockMongoDatabase = mockk<MongoDatabase>()
+        val mockCollection = mockk<MongoCollection<MovieDocument>>()
+        every { mockMongoDatabase.getCollection(any(), MovieDocument::class.java) } returns mockCollection
+        every { mockCollection.insertOne(any()) } throws MongoException("")
+        val repository = MoviesRepositoryImpl(mockMongoDatabase)
+        val movie = Movie(
+            title = "ET",
+            director = "Steven Spielberg",
+            releaseDate = LocalDate.of(1982, 5, 23),
+            actors = listOf("Drew Barrymore", "Henry Thomas"),
+            rate = Rate.SEM_CENSURA
+        )
+       assertThrows<DatabaseInsertionException>{repository.insertMovie(movie)}
+    }
+
+    @Test
+    fun `given a rate, should return all movies with the given rate`() {
+        val repository = MoviesRepositoryImpl(mongoDatabase)
+        val movie = Movie(
             title = "ET",
             director = "Steven Spielberg",
             releaseDate = LocalDate.of(1982, 5, 23),
@@ -41,13 +84,18 @@ class MoviesRepositoryImplTest(private val mongoDatabase: MongoDatabase) {
         )
         repository.insertMovie(movie)
 
-      val inserted = collection.find().first()
+        val movie2 = Movie(
+            title = "Star Wars - a new hope",
+            director = "George Lucas",
+            releaseDate = LocalDate.of(1977, 1, 1),
+            actors = listOf("Harrison Ford", "Mark Hamill", "Carrie Fischer"),
+            rate = Rate.SEM_CENSURA
+        )
+        repository.insertMovie(movie2)
+
+        val movies = repository.retrieveByRate(Rate.SEM_CENSURA)
         Assertions.assertAll(
-            Executable { Assertions.assertEquals(movie.title, inserted.title) },
-            Executable { Assertions.assertEquals(movie.director, inserted.director) },
-            Executable { Assertions.assertEquals(movie.releaseDate, inserted.releaseDate) },
-            Executable { Assertions.assertEquals(movie.actors, inserted.actors) },
-            Executable { Assertions.assertEquals(movie.rate, inserted.rate) }
+            Executable { Assertions.assertEquals(movies.size, 2) }
         )
     }
 }

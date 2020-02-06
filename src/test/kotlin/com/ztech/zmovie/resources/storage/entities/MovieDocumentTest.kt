@@ -46,7 +46,6 @@ class MovieDocumentTest {
     @Test
     fun `given a valid Movie, should create a MovieDocument`() {
         val movie = Movie(
-            id = "1234",
             title = "ET",
             director = "Steven Spielberg",
             releaseDate = LocalDate.of(1982, 5, 23),

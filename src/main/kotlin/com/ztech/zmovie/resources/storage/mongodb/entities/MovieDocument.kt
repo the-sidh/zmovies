@@ -7,7 +7,7 @@ import java.lang.IllegalArgumentException
 import java.time.LocalDate
 
 data class MovieDocument(
-    var id: String? = null,
+    var id: ObjectId? = null,
     var title: String? = null,
     var releaseDate: LocalDate? = null,
     var rate: Rate? = null,
@@ -17,7 +17,6 @@ data class MovieDocument(
 
     companion object {
         fun fromMovie(movie: Movie) = MovieDocument(
-            id = movie.id,
             title = movie.title,
             director = movie.director,
             rate = movie.rate,
@@ -31,21 +30,18 @@ data class MovieDocument(
 
         private fun movie(movieDocument: MovieDocument) =
             movieDocument?.let {
-                it.id?.let { id ->
-                    it.title?.let { title ->
-                        it.actors?.let { actors ->
-                            it.director?.let { director ->
-                                it.rate?.let { rate ->
-                                    it.releaseDate?.let { releaseDate ->
-                                        Movie(
-                                            id = id,
-                                            title = title,
-                                            director = director,
-                                            rate = rate,
-                                            releaseDate = releaseDate,
-                                            actors = actors
-                                        )
-                                    }
+                it.title?.let { title ->
+                    it.actors?.let { actors ->
+                        it.director?.let { director ->
+                            it.rate?.let { rate ->
+                                it.releaseDate?.let { releaseDate ->
+                                    Movie(
+                                        title = title,
+                                        director = director,
+                                        rate = rate,
+                                        releaseDate = releaseDate,
+                                        actors = actors
+                                    )
                                 }
                             }
                         }
