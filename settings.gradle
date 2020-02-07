@@ -1,2 +1,6 @@
 rootProject.name = 'zmovies'
+include 'src:componentTest'
+findProject(':src:componentTest')?.name = 'componentTest'
+include 'src:componentTest'
+findProject(':src:componentTest')?.name = 'componentTest'
 

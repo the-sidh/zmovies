@@ -66,6 +66,7 @@ dependencies {
     testCompile 'org.junit.jupiter:junit-jupiter:5.4.1'
     testCompile 'io.mockk:mockk:1.9.1'
     testCompile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0'
+    testCompile "io.rest-assured:rest-assured:4.0.0"
 
 }
 
@@ -81,4 +82,22 @@ test {
         events "PASSED", "FAILED", "SKIPPED"
     }
 }
+sourceSets {
+    componentTest {
+        compileClasspath += sourceSets.main.output + configurations.testCompile + sourceSets.test.output
+        runtimeClasspath += output + compileClasspath + configurations.testRuntime
+    }
+}
+
+task componentTest(type: Test) {
+    useJUnitPlatform()
+    description = 'Runs the component tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.componentTest.output.classesDirs
+    classpath = sourceSets.componentTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+    mustRunAfter test
+}
+
+test.finalizedBy componentTest
 

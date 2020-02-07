@@ -29,7 +29,7 @@ data class MovieDocument(
         }
 
         private fun movie(movieDocument: MovieDocument) =
-            movieDocument?.let {
+            movieDocument.let {
                 it.id?.let { title ->
                     it.actors?.let { actors ->
                         it.director?.let { director ->

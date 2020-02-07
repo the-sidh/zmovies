@@ -50,7 +50,6 @@ class MongoDBHolder(
         mongodProcess = mongodExecutable.start()
         val databaseAdmin = createAppUserAndReturnDatabaseAdmin()
         createCollections(databaseAdmin)
-
         mongoDatabase = mongoDatabase(connectionString, user, password, databaseName)
 
         return this

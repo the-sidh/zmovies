@@ -1,7 +1,7 @@
 package com.ztech.zmovie.application.web.controllers
 
 import com.ztech.zmovie.domain.entities.Movie
-import com.ztech.zmovie.domain.entities.Rate
+import com.ztech.zmovie.domain.exceptions.InvalidBodySuppliedException
 import com.ztech.zmovie.domain.services.SaveMovieService
 import com.ztech.zmovie.resources.storage.sample.movieSample
 import io.javalin.Context
@@ -9,12 +9,12 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
+import org.junit.jupiter.api.assertThrows
 
 class SaveMoviesControllerTest {
     private val ctx = mockk<Context>(relaxed = true)
     @Test
-    fun `should save a movie`() {
+    fun `given the request was well formatted, should save a movie`() {
         val service = mockk<SaveMovieService>()
         val movie = movieSample()
         every {ctx.body<Movie>()}returns movie
@@ -22,5 +22,14 @@ class SaveMoviesControllerTest {
         val controller = SaveMoviesController(service)
         controller.save(ctx)
         verify(exactly = 1) { service.saveMovie(any()) }
+    }
+    @Test
+    fun `given the request was bad formatted, should throw an exception`() {
+        val service = mockk<SaveMovieService>()
+        every {ctx.body<Movie>()} throws Exception()
+        val movie = movieSample()
+        every { service.saveMovie(movie) } returns movie
+        val controller = SaveMoviesController(service)
+        assertThrows<InvalidBodySuppliedException> {  controller.save(ctx) }
     }
 }
