@@ -40,7 +40,7 @@ There is a [a Postman collection](https://github.com/the-sidh/zmovies/blob/maste
 `Save a new movie` [/movie] <br/>
 ### Request
 
-`POST /thing/`
+`POST /movie/`
 
     curl -X POST \
      http://localhost:7000/movie \
@@ -82,7 +82,7 @@ ___
 # Running the tests
 
 The code was done relying heavily on TDD, so we have a comprehensive code coverage.
-You can run the tests using gradle
+You can run the unit tests using gradle
 ```
 gradle test
 ```
@@ -97,9 +97,9 @@ Integration tests can be achieved by using the postman collection supplied with 
 ![testResults](https://github.com/the-sidh/zmovies/blob/master/testsuccess.png)
 # On the joice of the web framework
 
-I chose [Javalin](http://https://javalin.io/), a lightweight web framework that I have been using for one and a half year. 
+I chose [Javalin](http://https://javalin.io/), a lightweight web framework that I have been using lately. 
 
-The learning curve is low and the amount of boiler plate code tends to be amoung the lower for java or kotlin web frameworks. 
+The learning curve is flat and the amount of boiler plate code tends to be among the lower for java or kotlin web frameworks. 
 It's style resembles Express.
 
 It runs over a jetty server.
