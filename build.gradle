@@ -7,35 +7,28 @@ buildscript {
         cucumberVersion = '4.7.1'
     }
 
-    repositories {
-        maven {
-            url "${artifactory_repository}"
-            credentials {
-                username = "${artifactory_user}"
-                password = "${artifactory_password}"
-            }
-        }
+   repositories {
+       mavenCentral()
     }
 
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${detektVersion}")
-        classpath("com.github.spacialcircumstances:gradle-cucumber-reporting:0.1.6")
     }
+}
+
+plugins {
+    id 'com.avast.gradle.docker-compose' version '0.7.1'
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'application'
 
+dockerCompose {
+    useComposeFiles = ['docker-compose.yml']
+}
+
 repositories {
-    maven {
-        url "${artifactory_repository}"
-        credentials {
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-        }
-    }
-    mavenLocal()
+    mavenCentral()
 }
 
 group 'org.example'
@@ -44,6 +37,12 @@ mainClassName = 'com.ztech.zmovie.application.App'
 sourceCompatibility = 1.8
 repositories {
     mavenCentral()
+    jcenter()
+}
+
+task runExample(type: JavaExec) {
+    main = 'com.ztech.zmovie.application.App'
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 dependencies {

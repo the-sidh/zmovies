@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  mongodb:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "zmovies"
+      MONGO_INITDB_DATABASE: "zmovies"
+      MONGO_INITDB_ROOT_PASSWORD: "zmovies"
+    volumes:
+      - ./docker/mongodb/:/docker-entrypoint-initdb.d

@@ -1,3 +1,5 @@
+@file:JvmName("Example")
+
 package com.ztech.zmovie.application
 
 import com.ztech.zmovie.application.config.modules.*
@@ -48,9 +50,9 @@ object App : KoinComponent {
         app.stop()
         StandAloneContext.stopKoin()
     }
-}
+    @JvmStatic
+    fun main(args: Array<String>) {
+        App.start()
 
-fun main(args: Array<String>) {
-    App.start()
-
+    }
 }
