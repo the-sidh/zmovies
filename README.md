@@ -10,8 +10,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 Use gradle to raise the docker container with MongoDB and run the application
 
-
-
 ```
 gradle composeUp run
 ```
@@ -31,14 +29,15 @@ gradle componentTest
 ### Integration tests
 
 Integration tests can be achieved by using the postman collection supplied with the code.
+![testResults](https://github.com/the-sidh/zmovies/blob/master/testsuccess.png)
+### On the joice of the web framework
 
-### And coding style tests
+I chose [Javalin](http://https://javalin.io/), a lightweight web framework that I have been using for one and a half year. 
 
-Explain what these tests test and why
+The learning curve is low and the amount of boiler plate code tends to be amoung the lower for java or kotlin web frameworks. 
+It's style resembles Express.
 
-```
-Give an example
-```
+It runs over a jetty server.
 
 ## Built With
 
