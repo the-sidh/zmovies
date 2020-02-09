@@ -63,7 +63,7 @@ There is a [a Postman collection](https://github.com/the-sidh/zmovies/blob/maste
        "rate": "SEM_CENSURA",
        "releaseDate": "1982-05-23",
        "title": "ET"
-        }
+        }'
 
 ### Response
 
