@@ -1,4 +1,4 @@
-# iPasswordCheck
+# iPasswordCheck challenge
 
 backend challenge
 
