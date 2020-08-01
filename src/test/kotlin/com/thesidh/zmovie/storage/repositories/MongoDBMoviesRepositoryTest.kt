@@ -29,11 +29,6 @@ class MongoDBMoviesRepositoryTest(private val mongoDatabase: MongoDatabase) {
             MovieDocument::class.java
         )
 
-    @BeforeEach
-    fun setUp() {
-        collection.drop()
-    }
-
     @Test
     fun `given that a movie has already been persisted, other movie with the same title should result in a execption`() {
         val repository = MongoDBMoviesRepository(mongoDatabase)
