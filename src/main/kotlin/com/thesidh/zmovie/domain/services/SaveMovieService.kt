@@ -2,7 +2,7 @@ package com.thesidh.zmovie.domain.services
 
 import com.thesidh.zmovie.domain.entities.Movie
 import com.thesidh.zmovie.domain.exceptions.TooMuchActorsException
-import com.thesidh.zmovie.domain.gateways.storage.MoviesRepository
+import com.thesidh.zmovie.domain.storage.MoviesRepository
 
 
 class SaveMovieService(private val repository: MoviesRepository) {

@@ -2,8 +2,8 @@ package com.thesidh.zmovie.domain.services
 
 import com.thesidh.zmovie.domain.entities.Movie
 import com.thesidh.zmovie.domain.entities.Rate
-import com.thesidh.zmovie.domain.gateways.storage.MoviesRepository
-import com.thesidh.zmovie.resources.storage.sample.movieSample
+import com.thesidh.zmovie.domain.storage.MoviesRepository
+import com.thesidh.zmovie.storage.sample.movieSample
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions
