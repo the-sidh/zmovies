@@ -18,7 +18,7 @@ gradle composeUp run
 # API endpoints
 
 These endpoints allow you to save and retrieve movie information.
-There is a [a Postman collection](https://github.com/the-sidh/zmovies/blob/master/postman/ZTech.postman_collection.json) supplied with the code that has sample requests for convenience.
+There is a [a Postman collection](https://github.com/the-sidh/zmovies/blob/master/postman/THESIDH.postman_collection.json) supplied with the code that has sample requests for convenience.
 
 ## GET
 `Retrieve movies by rate` [/movies/:rate]<br/>

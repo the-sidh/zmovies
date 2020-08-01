@@ -33,7 +33,7 @@ repositories {
 
 group 'org.example'
 version '1.0-SNAPSHOT'
-mainClassName = 'com.ztech.zmovie.application.App'
+mainClassName = 'com.thesidh.zmovie.application.App'
 sourceCompatibility = 1.8
 repositories {
     mavenCentral()
@@ -41,7 +41,7 @@ repositories {
 }
 
 task runExample(type: JavaExec) {
-    main = 'com.ztech.zmovie.application.App'
+    main = 'com.thesidh.zmovie.application.App'
     classpath = sourceSets.main.runtimeClasspath
 }
 
