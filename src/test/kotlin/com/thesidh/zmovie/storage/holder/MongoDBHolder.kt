@@ -1,16 +1,9 @@
 package com.thesidh.zmovie.storage.holder
 
-import com.thesidh.zmovie.storage.mongodb.config.mongoDatabase
 import com.mongodb.BasicDBObject
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoDatabase
-import de.flapdoodle.embed.mongo.MongodExecutable
-import de.flapdoodle.embed.mongo.MongodProcess
-import de.flapdoodle.embed.mongo.MongodStarter
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder
-import de.flapdoodle.embed.mongo.config.Net
-import de.flapdoodle.embed.mongo.distribution.Version
-import de.flapdoodle.embed.process.runtime.Network
+import com.thesidh.zmovie.storage.mongodb.config.mongoDatabase
 import java.util.*
 
 class MongoDBHolder(
@@ -20,20 +13,8 @@ class MongoDBHolder(
     private val password: String,
     private val databaseName: String
 ) {
-    private lateinit var mongodExecutable: MongodExecutable
     lateinit var mongoDatabase: MongoDatabase
-    private lateinit var mongodProcess: MongodProcess
-
-    fun start(): MongoDBHolder {
-        val starter = MongodStarter.getDefaultInstance()
-        val mongodConfig = MongodConfigBuilder()
-            .version(Version.Main.V4_0)
-            .net(Net(host, port, Network.localhostIsIPv6()))
-            .build()
-
-        mongodExecutable = starter.prepare(mongodConfig)
-        mongodProcess = mongodExecutable.start()
-        createCollections()
+    fun start() {
         mongoDatabase =
             mongoDatabase(
                 "$host:$port",
@@ -41,12 +22,7 @@ class MongoDBHolder(
                 password,
                 databaseName
             )
-        return this
-    }
-
-    fun stop() {
-        mongodProcess.stop()
-        mongodExecutable.stop()
+        createCollections()
     }
 
     fun clean() {
@@ -54,7 +30,6 @@ class MongoDBHolder(
             mongoDatabase.getCollection(it).drop()
         }
     }
-
     private fun createCollections() {
         val databaseAdmin = createDBAdmin()
         databaseAdmin.createCollection("zmovies")
@@ -80,4 +55,5 @@ class MongoDBHolder(
             databaseName = "zmovies"
         )
     }
+
 }

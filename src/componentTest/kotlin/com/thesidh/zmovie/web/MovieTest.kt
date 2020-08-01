@@ -9,6 +9,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.thesidh.zmovie.rest.App
 import com.thesidh.zmovie.domain.entities.Movie
 import com.thesidh.zmovie.domain.entities.Rate
+import com.thesidh.zmovie.storage.holder.FlapDoodleHolder
 import com.thesidh.zmovie.storage.holder.MongoDBHolder
 import com.thesidh.zmovie.storage.sample.movieSample
 import io.restassured.RestAssured
@@ -32,7 +33,6 @@ class MovieTest {
         val movie2 = movieSample().copy(title = "ET2")
         postMovie(movie1, HttpStatus.OK_200)
         postMovie(movie2, HttpStatus.CONFLICT_409)
-        println()
     }
 
     @Test
@@ -71,11 +71,13 @@ class MovieTest {
         .setDateFormat(SimpleDateFormat("yyyy-MM-ss"))
 
     companion object {
+        private val flapDoodleHolder = FlapDoodleHolder.getInstance()
         private val mongoHolder = MongoDBHolder.getInstance()
 
         @BeforeAll
         @JvmStatic
         fun beforeAll() {
+            flapDoodleHolder.start()
             mongoHolder.start()
             RestAssured.requestSpecification = RequestSpecBuilder()
                 .setBaseUri("http://localhost:7000")
@@ -90,7 +92,7 @@ class MovieTest {
         @AfterAll
         @JvmStatic
         fun afterAll() {
-            mongoHolder.stop()
+            flapDoodleHolder.stop()
             App.shutdown()
         }
     }

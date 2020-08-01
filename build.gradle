@@ -33,7 +33,7 @@ repositories {
 
 group 'org.example'
 version '1.0-SNAPSHOT'
-mainClassName = 'com.thesidh.zmovie.application.App'
+mainClassName = 'com.thesidh.zmovie.rest.App'
 sourceCompatibility = 1.8
 repositories {
     mavenCentral()
