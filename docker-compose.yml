@@ -2,7 +2,7 @@ version: '3.7'
 services:
   mongodb:
     container_name: mongo
-    image: mongo
+    image: packages.tools.infra:8444/mongo:3.6.8
     ports:
       - "27017:27017"
     environment:
