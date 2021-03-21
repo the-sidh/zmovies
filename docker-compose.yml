@@ -11,3 +11,11 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: "zmovies"
     volumes:
       - ./docker/mongodb/:/docker-entrypoint-initdb.d
+  sqs:
+    container_name: goaws1
+    image: packages.tools.infra:8444/p4tin/goaws:1.1.2
+    ports:
+      - 4100:4100
+      - 9324:9324
+    volumes:
+      - ./docker/goaws/:/conf

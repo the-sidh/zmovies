@@ -1,8 +1,6 @@
 package com.thesidh.zmovie.application.rest.controllers
 
-import com.thesidh.zmovie.domain.entities.Movie
 import com.thesidh.zmovie.domain.services.DeleteMoviesService
-import com.thesidh.zmovie.rest.controllers.DeleteMoviesController
 import com.thesidh.zmovie.storage.sample.movieSample
 import io.javalin.Context
 import io.mockk.every

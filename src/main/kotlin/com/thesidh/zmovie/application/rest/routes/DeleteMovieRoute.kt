@@ -1,7 +1,6 @@
-package com.thesidh.zmovie.rest.routes
+package com.thesidh.zmovie.application.rest.routes
 
-import com.thesidh.zmovie.rest.controllers.DeleteMoviesController
-import com.thesidh.zmovie.rest.controllers.SaveMoviesController
+import com.thesidh.zmovie.application.rest.controllers.DeleteMoviesController
 import io.javalin.apibuilder.ApiBuilder
 
 class DeleteMovieRoute(private val controller: DeleteMoviesController) {

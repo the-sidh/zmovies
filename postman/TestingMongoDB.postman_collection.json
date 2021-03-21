@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2d586d2e-e729-4659-aff4-b900c1403c77",
+		"_postman_id": "f606778c-f111-4c7a-b147-73f1c4eccf65",
 		"name": "TestingMongoDB",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "43fb7208-a850-4e24-aec8-43a04e4d77be",
+								"id": "057a1f94-c847-4b0c-9e7c-639ceeecc8f1",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -63,7 +63,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9793cc24-27b6-4eec-bf7e-d3118917f858",
+								"id": "3367f5ff-1b83-4e18-8300-40327c9be3f4",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -112,7 +112,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0ce0c6c6-a261-4f41-b77e-46a7b0553bcb",
+								"id": "5fac3c20-6004-440f-a5a5-bf641e3876cd",
 								"exec": [
 									"pm.test(\"Status code is 422\", function () {",
 									"    pm.response.to.have.status(422);",
@@ -161,7 +161,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "dd3af364-3446-495c-9af9-8bc12af31fd3",
+								"id": "8a71ae97-9d81-4122-9e7f-3d5b65463ff3",
 								"exec": [
 									"pm.sendRequest({",
 									"    url: 'http://localhost:7000/movie',",
@@ -192,7 +192,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8d6bcbed-2c82-4379-81f0-e3db2057f418",
+								"id": "b84932c7-77a1-4a28-b43d-496148151567",
 								"exec": [
 									"pm.test(\"Status code is 409\", function () {",
 									"    pm.response.to.have.status(409);",
@@ -241,7 +241,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "5cfdb654-b5f0-4cce-a7d8-91cfcb0d8732",
+								"id": "71ddf16f-1d90-4cb9-b48b-8424795bd9f5",
 								"exec": [
 									"pm.sendRequest({",
 									"    url: 'http://localhost:7000/movie',",
@@ -272,7 +272,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0d19cff8-0c0f-4030-9e06-c3d0f90daa07",
+								"id": "6ae37274-a7ea-467f-a5ca-32499b5f654f",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -337,7 +337,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"actors\": [\n        \"Drew Barrymore\",\n        \"Henry Thomas\"\n    ],\n    \"director\": \"Steven Spielberg\",\n    \"rate\": \"SEM_CENSURA\",\n    \"releaseDate\": \"1982-05-23\",\n    \"title\": \"ET3\"\n}",
+					"raw": "{\n    \"actors\": [\n        \"Drew Barrymore\",\n        \"Henry Thomas\"\n    ],\n    \"director\": \"Steven Spielberg\",\n    \"rate\": \"SEM_CENSURA\",\n    \"releaseDate\": \"1982-05-23\",\n    \"title\": \"ET\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -353,6 +353,41 @@
 					"port": "7000",
 					"path": [
 						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send a message containing a movie to the queue",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"actors\": [\n        \"Drew Barrymore\",\n        \"Henry Thomas\"\n    ],\n    \"director\": \"Steven Spielberg\",\n    \"rate\": \"SEM_CENSURA\",\n    \"releaseDate\": \"1982-05-23\",\n    \"title\": \"ET4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"message"
 					]
 				}
 			},
@@ -392,6 +427,96 @@
 					"path": [
 						"movies",
 						"SEM_CENSURA"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a movie",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:7000/movie/ET",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"movie",
+						"ET"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a movie",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:7000/movie/ET2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"movie",
+						"ET2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update a movie",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"actors\": [\n        \"Drew Barrymore\",\n        \"Henry Thomas\"\n    ],\n    \"director\": \"Steven Spielberg\",\n    \"rate\": \"SEM_CENSURA\",\n    \"releaseDate\": \"1982-05-27\",\n    \"title\": \"ET\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/movie/ET",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"movie",
+						"ET"
 					]
 				}
 			},

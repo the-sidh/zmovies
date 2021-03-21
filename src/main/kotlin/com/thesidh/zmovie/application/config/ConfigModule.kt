@@ -1,26 +1,41 @@
-package com.thesidh.zmovie.rest.config
+package com.thesidh.zmovie.application.config
 
+import com.thesidh.zmovie.application.messaging.consumer.SaveMovieConsumer
+import com.thesidh.zmovie.application.messaging.factory.SQSQueueSessionFactory
+import com.thesidh.zmovie.application.messaging.producer.SaveMovieProducer
+import com.thesidh.zmovie.application.rest.controllers.*
 import com.thesidh.zmovie.domain.services.DeleteMoviesService
 import com.thesidh.zmovie.domain.services.RetrieveMovieService
 import com.thesidh.zmovie.storage.mongodb.config.mongoDatabase
-import com.thesidh.zmovie.rest.controllers.RetrieveMoviesByRateController
-import com.thesidh.zmovie.rest.controllers.SaveMoviesController
-import com.thesidh.zmovie.rest.routes.RetrieveMoviesbyRateRoute
-import com.thesidh.zmovie.rest.routes.SaveMovieRoute
 import com.thesidh.zmovie.domain.storage.MoviesRepository
 import com.thesidh.zmovie.domain.services.RetrieveMoviesByRateService
 import com.thesidh.zmovie.domain.services.SaveMovieService
 import com.thesidh.zmovie.domain.services.UpdateMovieService
-import com.thesidh.zmovie.rest.controllers.DeleteMoviesController
-import com.thesidh.zmovie.rest.controllers.RetrieveMovieController
-import com.thesidh.zmovie.rest.controllers.UpdateMovieController
-import com.thesidh.zmovie.rest.routes.DeleteMovieRoute
-import com.thesidh.zmovie.rest.routes.RetrieveMovieRoute
-import com.thesidh.zmovie.rest.routes.UpdateMovieRoute
+import com.thesidh.zmovie.application.rest.routes.*
 import com.thesidh.zmovie.storage.mongodb.MongoDBMoviesRepository
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.module
 
+val buildSession = SQSQueueSessionFactory("http://localhost:9324").getSession()
+val queue = buildSession.createQueue("movies-queue")
+
+val messagingModule: Module = module{
+    single{
+        SaveMovieProducer(buildSession = buildSession, queue = queue)
+    }
+    single{
+        SaveMovieConsumer(buildSession = buildSession, queue = queue,service = get())
+    }
+
+}
+
+val produceMessageRoutes: Module = module{
+    single{ProduceMessageRoute(get())}
+}
+
+val produceMessageController: Module = module{
+    single{ProduceMessageController(get())}
+}
 val saveMovieRoutesModule: Module = module {
     single { SaveMovieRoute(get()) }
 }

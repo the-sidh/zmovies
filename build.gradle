@@ -65,6 +65,10 @@ dependencies {
     compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4")
+    compile "com.amazonaws:aws-java-sdk:1.10.55"
+    compile "com.amazonaws:amazon-sqs-java-messaging-lib:1.0.4"
+    compile 'javax.jms:javax.jms-api:2.0.1'
+
     //Mongo
     compile 'org.mongodb:mongodb-driver-sync:3.10.2'
     //DI

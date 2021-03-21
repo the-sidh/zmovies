@@ -1,4 +1,4 @@
-package com.thesidh.zmovie.rest.controllers
+package com.thesidh.zmovie.application.rest.controllers
 
 import com.thesidh.zmovie.domain.services.DeleteMoviesService
 import io.javalin.Context

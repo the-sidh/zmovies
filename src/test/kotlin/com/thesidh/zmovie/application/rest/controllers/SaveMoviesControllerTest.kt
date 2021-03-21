@@ -1,8 +1,7 @@
 package com.thesidh.zmovie.application.rest.controllers
 
-import com.thesidh.zmovie.rest.controllers.SaveMoviesController
 import com.thesidh.zmovie.domain.entities.Movie
-import com.thesidh.zmovie.rest.exceptions.InvalidBodySuppliedException
+import com.thesidh.zmovie.application.rest.exceptions.InvalidBodySuppliedException
 import com.thesidh.zmovie.domain.services.SaveMovieService
 import com.thesidh.zmovie.storage.sample.movieSample
 import io.javalin.Context

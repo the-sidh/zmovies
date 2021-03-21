@@ -1,7 +1,7 @@
-package com.thesidh.zmovie.rest.controllers
+package com.thesidh.zmovie.application.rest.controllers
 
 import com.thesidh.zmovie.domain.entities.Movie
-import com.thesidh.zmovie.rest.exceptions.InvalidBodySuppliedException
+import com.thesidh.zmovie.application.rest.exceptions.InvalidBodySuppliedException
 import com.thesidh.zmovie.domain.services.SaveMovieService
 import io.javalin.Context
 import org.eclipse.jetty.http.HttpStatus

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.thesidh.zmovie.rest.App
+import com.thesidh.zmovie.application.rest.App
 import com.thesidh.zmovie.domain.entities.Movie
 import com.thesidh.zmovie.domain.entities.Rate
 import com.thesidh.zmovie.storage.holder.FlapDoodleHolder

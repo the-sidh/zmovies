@@ -1,0 +1,8 @@
+Local:                              # Environment name that can be passed on the command line
+  #     (i.e.: ./goaws [Local | Dev]  -- defaults to 'Local')
+  Host: localhost                   # hostname of the goaws system  (for docker-compose this is the tag name of the container)
+  Port: 9324                        # port to listen on.
+  LogMessages: true
+  Queues:                           # List of queues to create at startup
+    - Name: movies-queue            # Queue name
+  ReceiveMessageWaitTimeSeconds: 20

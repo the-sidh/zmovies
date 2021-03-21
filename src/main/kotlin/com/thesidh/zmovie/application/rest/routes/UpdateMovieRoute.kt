@@ -1,6 +1,6 @@
-package com.thesidh.zmovie.rest.routes
+package com.thesidh.zmovie.application.rest.routes
 
-import com.thesidh.zmovie.rest.controllers.UpdateMovieController
+import com.thesidh.zmovie.application.rest.controllers.UpdateMovieController
 import io.javalin.apibuilder.ApiBuilder
 
 

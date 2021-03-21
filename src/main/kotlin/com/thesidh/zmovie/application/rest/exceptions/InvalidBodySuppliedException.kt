@@ -1,4 +1,4 @@
-package com.thesidh.zmovie.rest.exceptions
+package com.thesidh.zmovie.application.rest.exceptions
 
 import com.thesidh.zmovie.domain.exceptions.ZMovieException
 

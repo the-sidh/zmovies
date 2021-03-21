@@ -1,8 +1,6 @@
 package com.thesidh.zmovie.application.rest.controllers
 
 import com.thesidh.zmovie.domain.services.RetrieveMovieService
-import com.thesidh.zmovie.rest.controllers.RetrieveMovieController
-import com.thesidh.zmovie.rest.controllers.RetrieveMoviesByRateController
 import com.thesidh.zmovie.storage.sample.movieSample
 import io.javalin.Context
 import io.mockk.every
