@@ -7,5 +7,6 @@ interface MoviesRepository {
     fun insertMovie(movie: Movie): Boolean
     fun retrieveByRate(rate: Rate): List<Movie>
     fun removeMovie(title: String): Boolean
+    fun retrieveMovie(title: String): Movie?
     fun updateMovie(title: String, movie: Movie): Boolean
 }

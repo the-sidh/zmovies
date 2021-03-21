@@ -57,6 +57,11 @@ class MongoDBMoviesRepository(mongoDatabase: MongoDatabase) :
         return collection.deleteOne(query).deletedCount > 0
     }
 
+    override fun retrieveMovie(title: String): Movie? {
+        val condition = Filters.eq("_id", title)
+        return collection.find(condition).first()?.let { MovieDocument.toMovie(it) }
+    }
+
     override fun updateMovie(title: String, movie: Movie): Boolean {
         val condition = Filters.eq("_id", title)
         val doc = MovieDocument.fromMovie(movie)

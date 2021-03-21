@@ -9,13 +9,13 @@ import io.mockk.mockk
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class RetrieveMoviesServiceTest {
+class RetrieveMoviesByRateServiceTest {
 
     private val repository = mockk<MoviesRepository>(relaxed = true)
 
     @Test
     fun `given a Rate, should return all the movies from the given rate`(){
-        val service = RetrieveMoviesService(repository)
+        val service = RetrieveMoviesByRateService(repository)
         val movieList = listOf<Movie>(
             movieSample(),
             movieSample(),

@@ -184,4 +184,20 @@ class MongoDBMoviesRepositoryTest(private val mongoDatabase: MongoDatabase) {
                 }
         )
     }
+
+    @Test
+    fun `given the title of an existing movie in the database when retrieving the movie should return the movie`() {
+        val repository = MongoDBMoviesRepository(mongoDatabase)
+        val movie = movieSample()
+        repository.insertMovie(movie)
+        val movie2 = repository.retrieveMovie(title = movie.title)
+        assertEquals(movie, movie2)
+    }
+
+    @Test
+    fun `given the title of an non-existing movie in the database when retrieving the movie should return null`() {
+        val repository = MongoDBMoviesRepository(mongoDatabase)
+        val movie = movieSample()
+        assertNull(repository.retrieveMovie(title = movie.title))
+    }
 }

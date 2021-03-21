@@ -1,18 +1,21 @@
 package com.thesidh.zmovie.rest.config
 
 import com.thesidh.zmovie.domain.services.DeleteMoviesService
+import com.thesidh.zmovie.domain.services.RetrieveMovieService
 import com.thesidh.zmovie.storage.mongodb.config.mongoDatabase
-import com.thesidh.zmovie.rest.controllers.RetrieveMoviesController
+import com.thesidh.zmovie.rest.controllers.RetrieveMoviesByRateController
 import com.thesidh.zmovie.rest.controllers.SaveMoviesController
-import com.thesidh.zmovie.rest.routes.RetrieveMoviesRoute
+import com.thesidh.zmovie.rest.routes.RetrieveMoviesbyRateRoute
 import com.thesidh.zmovie.rest.routes.SaveMovieRoute
 import com.thesidh.zmovie.domain.storage.MoviesRepository
-import com.thesidh.zmovie.domain.services.RetrieveMoviesService
+import com.thesidh.zmovie.domain.services.RetrieveMoviesByRateService
 import com.thesidh.zmovie.domain.services.SaveMovieService
 import com.thesidh.zmovie.domain.services.UpdateMovieService
 import com.thesidh.zmovie.rest.controllers.DeleteMoviesController
+import com.thesidh.zmovie.rest.controllers.RetrieveMovieController
 import com.thesidh.zmovie.rest.controllers.UpdateMovieController
 import com.thesidh.zmovie.rest.routes.DeleteMovieRoute
+import com.thesidh.zmovie.rest.routes.RetrieveMovieRoute
 import com.thesidh.zmovie.rest.routes.UpdateMovieRoute
 import com.thesidh.zmovie.storage.mongodb.MongoDBMoviesRepository
 import org.koin.dsl.module.Module
@@ -22,8 +25,12 @@ val saveMovieRoutesModule: Module = module {
     single { SaveMovieRoute(get()) }
 }
 
-val retrieveMoviesRoutesModule: Module = module {
-    single { RetrieveMoviesRoute(get()) }
+val retrieveMoviesByRateRoutesModule: Module = module {
+    single { RetrieveMoviesbyRateRoute(get()) }
+}
+
+val retrieveMovieRoutesModule: Module = module {
+    single { RetrieveMovieRoute(get()) }
 }
 
 val deleteMoviesRoutesModule: Module= module {
@@ -38,8 +45,12 @@ val saveMovieControllersModule: Module = module {
     single { SaveMoviesController(get()) }
 }
 
-val retrieveMoviesControllersModule: Module = module {
-    single { RetrieveMoviesController(get()) }
+val retrieveMoviesByRateControllersModule: Module = module {
+    single { RetrieveMoviesByRateController(get()) }
+}
+
+val retrieveMovieControllersModule: Module = module {
+    single { RetrieveMovieController(get()) }
 }
 
 val deleteMoviesControllersModule: Module = module {
@@ -54,8 +65,12 @@ val saveMovieServiceModule: Module = module {
     single { SaveMovieService(get()) }
 }
 
-val retrieveMoviesServiceModule: Module = module {
-    single { RetrieveMoviesService(get()) }
+val retrieveMoviesByRateServiceModule: Module = module {
+    single { RetrieveMoviesByRateService(get()) }
+}
+
+val retrieveMovieServiceModule: Module = module {
+    single { RetrieveMovieService(get()) }
 }
 
 val deleteMoviesServiceModule: Module = module {

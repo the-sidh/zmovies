@@ -3,11 +3,12 @@
 package com.thesidh.zmovie.rest
 
 import com.thesidh.zmovie.domain.exceptions.*
-import com.thesidh.zmovie.rest.routes.RetrieveMoviesRoute
+import com.thesidh.zmovie.rest.routes.RetrieveMoviesbyRateRoute
 import com.thesidh.zmovie.rest.routes.SaveMovieRoute
 import com.thesidh.zmovie.rest.config.*
 import com.thesidh.zmovie.rest.exceptions.InvalidBodySuppliedException
 import com.thesidh.zmovie.rest.routes.DeleteMovieRoute
+import com.thesidh.zmovie.rest.routes.RetrieveMovieRoute
 import com.thesidh.zmovie.rest.routes.UpdateMovieRoute
 import io.javalin.Context
 import io.javalin.Javalin
@@ -20,7 +21,8 @@ import org.koin.standalone.inject
 object App : KoinComponent {
     private lateinit var app: Javalin
     private val saveMovieRoute: SaveMovieRoute by inject()
-    private val retrieveMoviesRoute: RetrieveMoviesRoute by inject()
+    private val retrieveMoviesByRateRoute: RetrieveMoviesbyRateRoute by inject()
+    private val retrieveMovieRoute: RetrieveMovieRoute by inject()
     private val deleteMoviesRoute: DeleteMovieRoute by inject()
     private val updateMovieRoute: UpdateMovieRoute by inject()
     fun start(extraProperties: Map<String, Any> = emptyMap()) {
@@ -30,9 +32,12 @@ object App : KoinComponent {
                         saveMovieRoutesModule,
                         saveMovieServiceModule,
                         saveMovieControllersModule,
-                        retrieveMoviesControllersModule,
-                        retrieveMoviesServiceModule,
-                        retrieveMoviesRoutesModule,
+                        retrieveMoviesByRateControllersModule,
+                        retrieveMoviesByRateServiceModule,
+                        retrieveMoviesByRateRoutesModule,
+                        retrieveMovieRoutesModule,
+                        retrieveMovieControllersModule,
+                        retrieveMovieServiceModule,
                         deleteMoviesRoutesModule,
                         deleteMoviesServiceModule,
                         deleteMoviesControllersModule,
@@ -89,9 +94,10 @@ object App : KoinComponent {
 
         app.routes {
             saveMovieRoute.register()
-            retrieveMoviesRoute.register()
+            retrieveMoviesByRateRoute.register()
             deleteMoviesRoute.register()
             updateMovieRoute.register()
+            retrieveMovieRoute.register()
         }
     }
 

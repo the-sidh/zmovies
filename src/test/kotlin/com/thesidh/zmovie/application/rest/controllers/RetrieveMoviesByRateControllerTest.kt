@@ -1,10 +1,10 @@
 package com.thesidh.zmovie.application.rest.controllers
 
-import com.thesidh.zmovie.rest.controllers.RetrieveMoviesController
+import com.thesidh.zmovie.rest.controllers.RetrieveMoviesByRateController
 import com.thesidh.zmovie.domain.entities.Movie
 import com.thesidh.zmovie.domain.entities.Rate
 import com.thesidh.zmovie.rest.exceptions.InvalidBodySuppliedException
-import com.thesidh.zmovie.domain.services.RetrieveMoviesService
+import com.thesidh.zmovie.domain.services.RetrieveMoviesByRateService
 import com.thesidh.zmovie.storage.sample.movieSample
 import io.javalin.Context
 import io.mockk.every
@@ -13,12 +13,12 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-class RetrieveMoviesControllerTest {
+class RetrieveMoviesByRateControllerTest {
 
     private val ctx = mockk<Context>(relaxed = true)
-    private val service = mockk<RetrieveMoviesService>()
+    private val service = mockk<RetrieveMoviesByRateService>()
     private val controller =
-        RetrieveMoviesController(service)
+        RetrieveMoviesByRateController(service)
 
     @Test
     fun `given the request was well formatted, should retrieve movies`() {
