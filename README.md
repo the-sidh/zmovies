@@ -1,3 +1,13 @@
+# What is this
+
+Just a study project based on a interview challenge I took years ago.
+
+I use it to experiment with a few architecture ideas and to practice TDD.
+
+Also, used as example on classes I give. 
+
+![arch](https://github.com/the-sidh/zmovies/blob/master/archtecture.png)
+
 # Getting Started
 
 These instructions will get the project up and running on your local machine for testing purposes. 
