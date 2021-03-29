@@ -7,10 +7,10 @@ import io.javalin.Context
 import java.lang.Exception
 
 class ProduceMessageController(val producer: SaveMovieProducer) {
-
+    @
     fun produceMessage(ctx: Context) {
         val movie = try {
-            ctx.body<Movie>()
+                ctx.body<Movie>()
         } catch (e: Exception) {
             throw InvalidBodySuppliedException()
         }
